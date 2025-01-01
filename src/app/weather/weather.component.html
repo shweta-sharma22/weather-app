@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg" style="background: black; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#" style="font-family: 'Lato';
+        font-weight: 700;">Weather App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>    
+    <!-- container for input and result -->
+    <div class="container mt-5 p-5 rounded shadow-lg" [ngClass]="containerClass" id="weatherContainer" style="background: whitesmoke; box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.1), -8px -8px 20px rgba(255, 255, 255, 0.1);">
+      <h2 class="text-center mb-4" style="font-family: 'Lobster', cursive; color: rgb(20, 23, 23); font-size: 2.5rem;">Weather App</h2>
+      
+      <!-- Form -->
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control mb-3"
+          placeholder="Enter city name"
+          [(ngModel)]="city"
+          style="border: none; border-radius: 10px; font-size: 1.2rem; padding: 12px; background: #f8f9fa; box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.1), inset -4px -4px 8px rgba(255, 255, 255, 0.7); transition: all 0.3s ease;"
+          (focus)="this.style.background='#ffffff'; this.style.boxShadow='inset 4px 4px 8px rgba(0, 0, 0, 0.2), inset -4px -4px 8px rgba(255, 255, 255, 0.9)'"
+          (blur)="this.style.background='#f8f9fa'; this.style.boxShadow='inset 4px 4px 8px rgba(0, 0, 0, 0.1), inset -4px -4px 8px rgba(255, 255, 255, 0.7)'"
+        />
+        <button
+          class="btn w-100 btn-primary"
+          (click)="getWeather()"
+          style="font-size: 1.2rem; border-radius: 10px; padding: 12px; background:#213555; border: none; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2), -4px -4px 8px rgba(255, 255, 255, 0.5); transition: background-color 0.3s, box-shadow 0.3s;"
+          (mouseover)="this.style.background='#1e2d3b'"
+          (mouseout)="this.style.background='#213555'"
+        >
+          Get Weather
+        </button>
+      </div>
+      
+       <!-- Weather Data Display -->
+       <div *ngIf="weatherData" class="mt-4 text-center">
+        <h4 class="mb-3">{{ weatherData.name }}</h4>
+        <div class="row justify-content-center">
+          <div class="col-md-3">
+            <p><i class="bi bi-thermometer-sun fs-2"></i></p>
+            <p>Temperature: {{ weatherData.main.temp }}°C</p>
+          </div>
+          <div class="col-md-3">
+            <p><i class="bi bi-cloud-sun fs-2"></i></p>
+            <p>Condition: {{ weatherData.weather[0].description }}</p>
+          </div>
+          <div class="col-md-3">
+            <p><i class="bi bi-moisture fs-2"></i></p>
+            <p>Humidity: {{ weatherData.main.humidity }}%</p>
+          </div>
+          <div class="col-md-3">
+            <p><i class="bi bi-wind fs-2"></i></p>
+            <p>Wind Speed: {{ weatherData.wind.speed }} km/h</p>
+          </div>
+        </div>
+      </div>
+      
+    <!-- Error Message -->
+      <div *ngIf="errorMessage" class="text-danger mt-3 text-center">
+        <strong>{{ errorMessage }}</strong>
+      </div>
+  </div>
+
+  
+       
+    </body>
+</html>
